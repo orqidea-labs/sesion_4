@@ -2,9 +2,11 @@ import datetime
 import os
 
 def log(mensaje):
-    ruta_log = "/tmp/bitacora.log"  # usar /tmp dentro del contenedor
+    # Hora actual en UTC menos 5 horas (Bogotá / Lima)
+    hora_local = datetime.datetime.utcnow() - datetime.timedelta(hours=5)
+    ruta_log = "/tmp/bitacora.log"  # o el path que prefieras
     with open(ruta_log, "a", encoding="utf-8") as f:
-        f.write(f"{datetime.datetime.now()} - {mensaje}\n")
+        f.write(f"{hora_local.strftime('%Y-%m-%d %H:%M:%S')} - {mensaje}\n")
 
 def celsius_a_fahrenheit(c):
     resultado = (c * 9/5) + 32
