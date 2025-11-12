@@ -20,12 +20,12 @@ if __name__ == "__main__":
     print("Conversor de temperaturas")
     print("Ruta actual:", os.getcwd())  # solo para verificar
 
-    opcion = input("Seleccione (1) Celsius → Fahrenheit o (2) F→C: ")
+    opcion = input("Seleccione (1) Celsius → Fahrenheit o (2) Fahrenheit → °Celsius: ")
     if opcion == "1":
         c = float(input("Ingrese grados Celsius: "))
-        print(f"{c}°Celsius = {celsius_a_fahrenheit(c)}°F")
+        print(f"{c} °Celsius = {celsius_a_fahrenheit(c)} °Fahrenheit")
     elif opcion == "2":
         f = float(input("Ingrese grados Fahrenheit: "))
-        print(f"{f}°Fahrenheit = {fahrenheit_a_celsius(f)}°Celsius")
+        print(f"{f} °Fahrenheit = {fahrenheit_a_celsius(f)} °Celsius")
     else:
         print("Opción no válida")
