@@ -2,7 +2,8 @@ import datetime
 import os
 
 def log(mensaje):
-    with open("bitacora.log", "a") as f:
+    ruta_log = "/tmp/bitacora.log"  # usar /tmp dentro del contenedor
+    with open(ruta_log, "a", encoding="utf-8") as f:
         f.write(f"{datetime.datetime.now()} - {mensaje}\n")
 
 def celsius_a_fahrenheit(c):
@@ -17,12 +18,14 @@ def fahrenheit_a_celsius(f):
 
 if __name__ == "__main__":
     print("Conversor de temperaturas")
-    opcion = input("Seleccione (1) celsius→fahrenheit o (2) F→C: ")
+    print("Ruta actual:", os.getcwd())  # solo para verificar
+
+    opcion = input("Seleccione (1) Celsius → Fahrenheit o (2) F→C: ")
     if opcion == "1":
         c = float(input("Ingrese grados Celsius: "))
-        print(f"{c}°celsius = {celsius_a_fahrenheit(c)}°F")
+        print(f"{c}°Celsius = {celsius_a_fahrenheit(c)}°F")
     elif opcion == "2":
         f = float(input("Ingrese grados Fahrenheit: "))
-        print(f"{f}°fahrenheit = {fahrenheit_a_celsius(f)}°celsius")
+        print(f"{f}°Fahrenheit = {fahrenheit_a_celsius(f)}°Celsius")
     else:
         print("Opción no válida")
