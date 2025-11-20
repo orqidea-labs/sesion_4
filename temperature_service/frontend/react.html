@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>React Temp App</title>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<!-- React UMD -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<script>
+    const { useState } = React;
+
+    function TemperatureConverter() {
+        const [valor, setValor] = useState("");
+        const [resultado, setResultado] = useState("");
+
+        const convertC2F = async () => {
+            if (valor === "") return;
+            const res = await fetch(`/convert/c2f?c=${valor}`);
+            const data = await res.json();
+            setResultado(`${data.celsius}°C equivalen a ${data.fahrenheit}°F`);
+        };
+
+        const convertF2C = async () => {
+            if (valor === "") return;
+            const res = await fetch(`/convert/f2c?f=${valor}`);
+            const data = await res.json();
+            setResultado(`${data.fahrenheit}°F equivalen a ${data.celsius}°C`);
+        };
+
+        const limpiar = () => {
+            setValor("");
+            setResultado("");
+        };
+
+        return React.createElement(
+            "div",
+            { style: { padding: "20px", width: "300px", background: "#f5f5f5" } },
+            React.createElement("h2", null, "Conversión de Temperaturas"),
+
+            React.createElement("input", {
+                type: "number",
+                value: valor,
+                onChange: e => setValor(e.target.value),
+                placeholder: "Ingrese valor",
+                style: { width: "100%", marginBottom: "10px", padding: "8px" }
+            }),
+
+            React.createElement("button", { onClick: convertC2F }, "Celsius → Fahrenheit"),
+            React.createElement("button", { onClick: convertF2C }, "Fahrenheit → Celsius"),
+            React.createElement("button", { onClick: limpiar }, "Limpiar"),
+
+            React.createElement(
+                "div",
+                { style: { marginTop: "15px", fontWeight: "bold" } },
+                resultado
+            )
+        );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(React.createElement(TemperatureConverter));
+</script>
+
+</body>
+</html>
